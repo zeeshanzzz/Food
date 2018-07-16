@@ -5,12 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.khan.food.Interface.Onclick;
-import com.example.khan.food.Model.Category;
-import com.squareup.picasso.Picasso;
 
 public class Viewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
     View mview;
@@ -27,12 +24,12 @@ public class Viewholder extends RecyclerView.ViewHolder implements View.OnClickL
 
     }
 
-    public  void setDetailes(Context context,String Image_url,String Name){
+    public  void setDetailes(Context context,String Image,String Name){
         text=mview.findViewById(R.id.textView);
-        imageView=mview.findViewById(R.id.my_image);
+        imageView=mview.findViewById(R.id.food_image);
         text.setText(Name);
 
-     Glide.with(context).load(Image_url).into(imageView);
+     Glide.with(context).load(Image).into(imageView);
         mview.setOnClickListener(this);
 
 

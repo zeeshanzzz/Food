@@ -2,7 +2,7 @@ package com.example.khan.food.Model;
 
 public class Category {
     private String Name;
-    private  String Image_url;
+    private  String Image;
 
     public Category() {
     }
@@ -15,11 +15,11 @@ public class Category {
         Name = name;
     }
 
-    public String getImage_url() {
-        return Image_url;
+    public String getImage() {
+        return Image;
     }
 
-    public void setImage_url(String image_url) {
-        Image_url = image_url;
+    public void setImage(String image_url) {
+        Image = image_url;
     }
 }

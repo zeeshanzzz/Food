@@ -1,5 +1,6 @@
 package com.example.khan.food;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.khan.food.Interface.Onclick;
 import com.example.khan.food.Model.Category;
+import com.example.khan.food.Model.Food_Holder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,6 +35,7 @@ public class Main2Activity extends AppCompatActivity
     TextView TxtFullName;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+    FirebaseRecyclerAdapter<Category,Viewholder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class Main2Activity extends AppCompatActivity
         setSupportActionBar(toolbar);
         toolbar.setTitle("Menu");
         database=FirebaseDatabase.getInstance();
-        category=database.getReference("Categroy");
+        category=database.getReference("Category");
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -73,16 +76,18 @@ public class Main2Activity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseRecyclerAdapter<Category,Viewholder> adapter=new FirebaseRecyclerAdapter<Category, Viewholder>(Category.class,R.layout.menu_item,Viewholder.class,category) {
+        adapter=new FirebaseRecyclerAdapter<Category, Viewholder>(Category.class,R.layout.menu_item,Viewholder.class,category) {
             @Override
             protected void populateViewHolder(Viewholder viewHolder, final Category model, int position) {
-                viewHolder.setDetailes(getApplicationContext(),model.getImage_url(),model.getName());
+                viewHolder.setDetailes(getApplicationContext(),model.getImage(),model.getName());
                 final Category item=model;
                 viewHolder.setOnclick(new Onclick() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
                         Toast.makeText(Main2Activity.this,""+model.getName(),Toast.LENGTH_LONG).show();
-
+                        Intent intent=new Intent(Main2Activity.this, Food_list.class);
+                        intent.putExtra("CategoryId",adapter.getRef(position).getKey());
+                      startActivity(intent);
                     }
                 });
 
